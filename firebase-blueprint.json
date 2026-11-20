@@ -1,0 +1,43 @@
+{
+  "entities": {
+    "lead": {
+      "title": "Lead",
+      "description": "A business lead captured from the contact form or simulator",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "email": { "type": "string" },
+        "message": { "type": "string" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["id", "name", "email", "createdAt"]
+    },
+    "booking": {
+      "title": "Booking",
+      "description": "Consultation booking synced with Google Calendar",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "userId": { "type": "string" },
+        "summary": { "type": "string" },
+        "description": { "type": "string" },
+        "startTime": { "type": "string" },
+        "endTime": { "type": "string" },
+        "calendarEventId": { "type": "string" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["id", "userId", "summary", "startTime", "endTime", "createdAt"]
+    }
+  },
+  "firestore": {
+    "/leads/{leadId}": {
+      "schema": "lead",
+      "description": "Captured business leads and client submissions"
+    },
+    "/bookings/{bookingId}": {
+      "schema": "booking",
+      "description": "Active client consultations and calendar events"
+    }
+  }
+}

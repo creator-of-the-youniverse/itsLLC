@@ -1,0 +1,167 @@
+@import "tailwindcss";
+
+@variant dark (&:where(.dark, .dark *));
+
+/* Root viewport constraints preventing horizontal scrolling */
+html, body {
+  max-width: 100vw;
+  overflow-x: hidden;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+*, ::before, ::after {
+  box-sizing: border-box;
+}
+
+/* Smooth transitions for theme elements */
+.theme-transition,
+.theme-transition * {
+  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Transition speed classes */
+.theme-duration-instant,
+.theme-duration-instant * {
+  transition-duration: 0ms !important;
+}
+
+.theme-duration-normal,
+.theme-duration-normal * {
+  transition-duration: 350ms !important;
+}
+
+.theme-duration-slow,
+.theme-duration-slow * {
+  transition-duration: 1000ms !important;
+}
+
+.theme-duration-cinematic,
+.theme-duration-cinematic * {
+  transition-duration: 2500ms !important;
+}
+
+/* Highlight shimmer animation for demo buttons */
+@keyframes borderShimmer {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.animate-border-shimmer {
+  background-size: 200% 200%;
+  animation: borderShimmer 6s linear infinite;
+}
+
+/* Custom interactive canvas background grid */
+.bg-grid-pattern {
+  background-size: 24px 24px;
+  background-image: radial-gradient(circle, var(--color-grid) 1px, transparent 1px);
+}
+
+/* Glow ring pulsation */
+@keyframes pulsateGlow {
+  0%, 100% {
+    transform: scale(0.98);
+    opacity: 0.2;
+    filter: blur(40px);
+  }
+  50% {
+    transform: scale(1.05);
+    opacity: 0.35;
+    filter: blur(55px);
+  }
+}
+
+.animate-glow-pulse {
+  animation: pulsateGlow 6s ease-in-out infinite;
+}
+
+/* 3D Wireframe Cube & Ring Spinners CSS Engine */
+@keyframes spin3D {
+  0% {
+    transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg);
+  }
+  100% {
+    transform: rotateX(360deg) rotateY(360deg) rotateZ(360deg);
+  }
+}
+
+@keyframes spin3DReverse {
+  0% {
+    transform: rotateX(360deg) rotateY(360deg) rotateZ(360deg);
+  }
+  100% {
+    transform: rotateX(0deg) rotateY(-360deg) rotateZ(0deg);
+  }
+}
+
+.perspective-1000 {
+  perspective: 1000px;
+}
+
+.preserve-3d {
+  transform-style: preserve-3d;
+}
+
+.cube-3d {
+  width: 60px;
+  height: 60px;
+  position: relative;
+  transform-style: preserve-3d;
+  animation: spin3D 4s linear infinite;
+}
+
+.cube-face {
+  position: absolute;
+  width: 60px;
+  height: 60px;
+  border: 1.5px solid rgba(99, 102, 241, 0.85); /* Indigo accent boundary */
+  background: rgba(99, 102, 241, 0.05); /* Slight Indigo backglass */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: border-color 0.5s ease;
+}
+
+.dark .cube-face {
+  border-color: rgba(165, 180, 252, 0.85); /* Indigo light-300 boundary */
+  background: rgba(99, 102, 241, 0.03);
+}
+
+.face-front  { transform: rotateY(  0deg) translateZ(30px); }
+.face-back   { transform: rotateY(180deg) translateZ(30px); }
+.face-right  { transform: rotateY( 90deg) translateZ(30px); }
+.face-left   { transform: rotateY(-90deg) translateZ(30px); }
+.face-top    { transform: rotateX( 90deg) translateZ(30px); }
+.face-bottom { transform: rotateX(-90deg) translateZ(30px); }
+
+/* Orbiting 3D Ring */
+.ring-3d-outer {
+  position: absolute;
+  width: 110px;
+  height: 110px;
+  border: 2px dashed rgba(16, 185, 129, 0.5); /* Emerald accent */
+  border-radius: 50%;
+  transform-style: preserve-3d;
+  animation: spin3DReverse 6s linear infinite;
+}
+
+.ring-3d-inner {
+  position: absolute;
+  width: 140px;
+  height: 140px;
+  border: 1px solid rgba(99, 102, 241, 0.3);
+  border-radius: 50%;
+  transform-style: preserve-3d;
+  animation: spin3D 8s linear infinite;
+}
+

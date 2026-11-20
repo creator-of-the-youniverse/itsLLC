@@ -1,0 +1,6 @@
+{
+  "name": "It's LLC Agency Site",
+  "description": "A single-page agency portfolio site for It's LLC (itsllc.itsyouonline.com), exhibiting a product showcase, details on strategic web and automation offers, and case studies.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

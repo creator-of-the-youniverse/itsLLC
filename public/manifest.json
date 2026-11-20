@@ -1,0 +1,25 @@
+{
+  "name": "It's LLC Custom Systems",
+  "short_name": "It's LLC",
+  "description": "Custom websites and productivity systems built by Sean Holbrook for It's LLC (itsllc.itsyouonline.com).",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#070709",
+  "theme_color": "#4f46e5",
+  "orientation": "any",
+  "scope": "/",
+  "icons": [
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

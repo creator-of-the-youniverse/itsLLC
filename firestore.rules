@@ -1,0 +1,59 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Global Safety Net: Default-deny catch-all
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // Helper functions
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isValidId(id) {
+      return id is string && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$');
+    }
+
+    function incoming() {
+      return request.resource.data;
+    }
+
+    function existing() {
+      return resource.data;
+    }
+
+    function isValidLead(data) {
+      return data.keys().hasAll(['id', 'name', 'email', 'createdAt']) 
+        && data.keys().size() <= 5
+        && data.id is string && data.id.size() <= 128
+        && data.name is string && data.name.size() <= 100
+        && data.email is string && data.email.size() <= 100
+        && data.createdAt is string && data.createdAt.size() <= 100;
+    }
+
+    function isValidBooking(data) {
+      return data.keys().hasAll(['id', 'userId', 'summary', 'startTime', 'endTime', 'createdAt'])
+        && data.keys().size() <= 8
+        && data.id is string && data.id.size() <= 128
+        && data.userId is string && data.userId.size() <= 128
+        && data.summary is string && data.summary.size() <= 200
+        && data.startTime is string && data.startTime.size() <= 100
+        && data.endTime is string && data.endTime.size() <= 100
+        && data.createdAt is string && data.createdAt.size() <= 100;
+    }
+
+    match /leads/{leadId} {
+      allow create: if isValidId(leadId) && isValidLead(incoming());
+      allow read: if isSignedIn();
+      allow update, delete: if isSignedIn();
+    }
+
+    match /bookings/{bookingId} {
+      allow create: if isValidId(bookingId) && isSignedIn() && incoming().userId == request.auth.uid && isValidBooking(incoming());
+      allow read: if isSignedIn() && resource.data.userId == request.auth.uid;
+      allow update: if isValidId(bookingId) && isSignedIn() && existing().userId == request.auth.uid && incoming().userId == request.auth.uid && isValidBooking(incoming());
+      allow delete: if isSignedIn() && resource.data.userId == request.auth.uid;
+    }
+  }
+}
